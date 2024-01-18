@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 
 export default function CartDetails() {
   const router = useRouter();
-  const { items, itemsPrice, decrease, increase, remove } = useCartService();
+  const { items, itemsPrice, decrease, increase, remove, clear } =
+    useCartService();
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -99,9 +100,14 @@ export default function CartDetails() {
                   <li>
                     <button
                       onClick={() => router.push("/shipping")}
-                      className="btn btn-primary w-full"
+                      className="mb-3 btn btn-primary w-full"
                     >
                       Proceed to Checkout
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={clear} className="btn btn-primary w-full">
+                      Empty Basket
                     </button>
                   </li>
                 </ul>
