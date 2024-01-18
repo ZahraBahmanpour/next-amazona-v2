@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import useCartService from '@/lib/hooks/useCartStore'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import useCartService from "@/lib/hooks/useCartStore";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function CartDetails() {
-  const router = useRouter()
-  const { items, itemsPrice, decrease, increase } = useCartService()
+  const router = useRouter();
+  const { items, itemsPrice, decrease, increase, remove } = useCartService();
 
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
-  if (!mounted) return <></>
+  if (!mounted) return <></>;
 
   return (
     <>
@@ -34,6 +34,7 @@ export default function CartDetails() {
                   <th>Item</th>
                   <th>Quantity</th>
                   <th>Price</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,6 +72,15 @@ export default function CartDetails() {
                       </button>
                     </td>
                     <td>${item.price}</td>
+                    <td>
+                      <button
+                        className="btn"
+                        type="button"
+                        onClick={() => remove(item)}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -88,7 +98,7 @@ export default function CartDetails() {
                   </li>
                   <li>
                     <button
-                      onClick={() => router.push('/shipping')}
+                      onClick={() => router.push("/shipping")}
                       className="btn btn-primary w-full"
                     >
                       Proceed to Checkout
@@ -101,5 +111,5 @@ export default function CartDetails() {
         </div>
       )}
     </>
-  )
+  );
 }
