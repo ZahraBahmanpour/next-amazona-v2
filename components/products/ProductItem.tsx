@@ -1,8 +1,10 @@
-import { Product } from '@/lib/models/ProductModel'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import { Rating } from './Rating'
+import { Product } from "@/lib/models/ProductModel";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { Rating } from "./Rating";
+import AddToCart from "./AddToCart";
+import { convertDocToObj } from "@/lib/utils";
 
 export default function ProductItem({ product }: { product: Product }) {
   return (
@@ -26,8 +28,19 @@ export default function ProductItem({ product }: { product: Product }) {
         <p className="mb-2">{product.brand}</p>
         <div className="card-actions flex items-center justify-between">
           <span className="text-2xl">${product.price}</span>
+          <span className="text-2xl">
+            {" "}
+            <AddToCart
+              item={{
+                ...convertDocToObj(product),
+                qty: 0,
+                color: "",
+                size: "",
+              }}
+            />
+          </span>
         </div>
       </div>
     </div>
-  )
+  );
 }
